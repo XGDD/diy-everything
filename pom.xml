@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+
+<groupId>com.calm</groupId>
+<artifactId>DIY-Everything</artifactId>
+<version>1.0.0</version>
+<!--打包格式jar-->
+<packaging>jar</packaging>
+<!--项目名称-->
+<name>DIY-Everything</name>
+
+<!--项目描述-->
+<description>自己DIY的Everything的Java版本跨平台快速搜索工具</description>
+
+<developers>
+<developer>
+<id>01</id>
+<name>calm</name>
+<email>13572029026@163.com</email>
+<roles>
+<role>Creator</role>
+<role>Developer</role>
+</roles>
+</developer>
+</developers>
+
+
+<properties>
+<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<java.version>1.8</java.version>
+<maven.compiler.source>${java.version}</maven.compiler.source>
+<maven.compiler.target>${java.version}</maven.compiler.target>
+</properties>
+
+<dependencies>
+
+<dependency>
+<!--Lombok插件运行依赖的库-->
+<groupId>org.projectlombok</groupId>
+<artifactId>lombok</artifactId>
+<version>1.18.6</version>
+</dependency>
+
+<!--H2数据库以及驱动（JDBC API）-->
+<dependency>
+<groupId>com.h2database</groupId>
+<artifactId>h2</artifactId>
+<version>1.4.197</version>
+</dependency>
+
+<dependency>
+<groupId>mysql</groupId>
+<artifactId>mysql-connector-java</artifactId>
+<version>5.1.47</version>
+</dependency>
+
+<dependency>
+<groupId>junit</groupId>
+<artifactId>junit</artifactId>
+<version>4.12</version>
+<scope>test</scope>
+</dependency>
+
+<!--数据库的连接池（目的：提高数据库的访问效率） 有了连接就可以执行SQL语句，但单连接不停的向数据库简历连接，性能比较低-->
+<dependency>
+<groupId>com.alibaba</groupId>
+<artifactId>druid</artifactId>
+<version>1.1.13</version>
+</dependency>
+    <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.6</version>
+    </dependency>
+</dependencies>
+
+<build>
+<plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+    </plugin>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-jar-plugin</artifactId>
+<version>3.1.0</version>
+<configuration>
+<archive>
+<manifest>
+<!--配置主类-->
+<addClasspath>true</addClasspath>
+<mainClass>com.calm.diyeverything.cmd.DIYEverythingCmdAPP</mainClass>
+<classpathPrefix>lib</classpathPrefix>
+</manifest>
+</archive>
+</configuration>
+</plugin>
+<!--&lt;!&ndash; 该插件用于测试出错并不影响项目的编译 &ndash;&gt;-->
+<!--<plugin>-->
+<!--<groupId>org.apache.maven.plugins</groupId>-->
+<!--<artifactId>maven-surefire-plugin</artifactId>-->
+<!--<configuration>-->
+<!--<testFailureIgnore>true</testFailureIgnore>-->
+<!--</configuration>-->
+<!--</plugin>-->
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-dependency-plugin</artifactId>
+<version>3.1.1</version>
+<executions>
+<execution>
+<id>copy-lib</id>
+<goals>
+<goal>copy-dependencies</goal>
+</goals>
+<phase>package</phase>
+<configuration>
+<outputDirectory>${project.build.directory}/lib</outputDirectory>
+</configuration>
+</execution>
+</executions>
+</plugin>
+</plugins>
+</build>
+</project>
